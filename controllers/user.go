@@ -49,6 +49,8 @@ func (cc *UserController) Register(c echo.Context) error {
 
 	c.Bind(&userRequest)
 
+	userRequest.RoleID = 2
+
 	user := cc.Service.Repository.Register(userRequest)
 
 	return NewResponseSuccess(c, http.StatusCreated, "successfully register user", user.ToResponse())
