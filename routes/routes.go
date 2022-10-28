@@ -18,8 +18,8 @@ func RoutesInit(e *echo.Echo) {
 
 	e.GET("/users", userController.GetAll)
 	e.GET("/users/:id", userController.GetByID)
-	e.PUT("/roles/:id", userController.Update)
-	e.DELETE("/roles/:id", userController.Delete)
+	e.PUT("/users/:id", userController.Update)
+	e.DELETE("/users/:id", userController.Delete)
 
 	// user auth
 	e.POST("/register", userController.Register)
