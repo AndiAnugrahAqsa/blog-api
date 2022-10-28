@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
+var categoryController = controllers.NewCategoryController()
 var roleController = controllers.NewRoleController()
 var userController = controllers.NewUserController()
 
@@ -25,6 +26,12 @@ func RoutesInit(e *echo.Echo) {
 	userPrivateRoutes := e.Group("")
 
 	userPrivateRoutes.Use(middleware.JWT([]byte(util.GetConfig("JWT_SECRET_KEY"))))
+
+	e.GET("/categories", categoryController.GetAll)
+	e.GET("/categories/:id", categoryController.GetByID)
+	superUserPrivateRoutes.POST("/categories", categoryController.Create)
+	superUserPrivateRoutes.PUT("/categories/:id", categoryController.Update)
+	superUserPrivateRoutes.DELETE("/categories/:id", categoryController.Delete)
 
 	superUserPrivateRoutes.GET("/roles", roleController.GetAll)
 	superUserPrivateRoutes.GET("/roles/:id", roleController.GetByID)
