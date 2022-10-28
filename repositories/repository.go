@@ -2,6 +2,13 @@ package repositories
 
 import "mini-project/models"
 
+type CategoryRepository interface {
+	GetAll() []models.Category
+	GetByID(id int) models.Category
+	Create(categoryRequest models.CategoryRequest) models.Category
+	Update(id int, categoryRequest models.CategoryRequest) models.Category
+	Delete(id int) bool
+}
 type RoleRepository interface {
 	GetAll() []models.Role
 	GetByID(id int) models.Role
