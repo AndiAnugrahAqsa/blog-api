@@ -51,11 +51,11 @@ func (cc *RoleController) Update(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
 
-	var blogUpdate models.RoleRequest
+	var roleUpdate models.RoleRequest
 
-	c.Bind(&blogUpdate)
+	c.Bind(&roleUpdate)
 
-	role := cc.Service.Repository.Update(id, blogUpdate)
+	role := cc.Service.Repository.Update(id, roleUpdate)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully update role", role)
 }
