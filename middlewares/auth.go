@@ -16,7 +16,7 @@ type jwtCustomClaims struct {
 	jwt.StandardClaims
 }
 
-func GenerateToken(user models.User) string {
+func GenerateToken(user models.User) (string, error) {
 	claims := &jwtCustomClaims{
 		user.ID,
 		user.Role.ID,
@@ -30,8 +30,8 @@ func GenerateToken(user models.User) string {
 	tokenString, err := token.SignedString([]byte(util.GetConfig("JWT_SECRET_KEY")))
 
 	if err != nil {
-		echo.NewHTTPError(http.StatusInternalServerError, "fail to generate token")
+		return "", echo.NewHTTPError(http.StatusInternalServerError, "fail to generate token")
 	}
 
-	return tokenString
+	return tokenString, nil
 }

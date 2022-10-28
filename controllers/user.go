@@ -78,7 +78,11 @@ func (cc *UserController) Login(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusOK, "password invalid")
 	}
 
-	token := middlewares.GenerateToken(user)
+	token, err := middlewares.GenerateToken(user)
+
+	if err != nil {
+		return err
+	}
 
 	return c.JSON(http.StatusOK, map[string]any{
 		"token": token,
