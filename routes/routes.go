@@ -2,24 +2,35 @@ package routes
 
 import (
 	"mini-project/controllers"
+	"mini-project/middlewares"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 var roleController = controllers.NewRoleController()
 var userController = controllers.NewUserController()
 
 func RoutesInit(e *echo.Echo) {
-	e.GET("/roles", roleController.GetAll)
-	e.GET("/roles/:id", roleController.GetByID)
-	e.POST("/roles", roleController.Create)
-	e.PUT("/roles/:id", roleController.Update)
-	e.DELETE("/roles/:id", roleController.Delete)
 
-	e.GET("/users", userController.GetAll)
-	e.GET("/users/:id", userController.GetByID)
-	e.PUT("/users/:id", userController.Update)
-	e.DELETE("/users/:id", userController.Delete)
+	superUserPrivateRoutes := e.Group("")
+
+	config := middleware.JWTConfig{
+		KeyFunc: middlewares.GetJWTSecretKey,
+	}
+
+	superUserPrivateRoutes.Use(middleware.JWTWithConfig(config))
+
+	superUserPrivateRoutes.GET("/roles", roleController.GetAll)
+	superUserPrivateRoutes.GET("/roles/:id", roleController.GetByID)
+	superUserPrivateRoutes.POST("/roles", roleController.Create)
+	superUserPrivateRoutes.PUT("/roles/:id", roleController.Update)
+	superUserPrivateRoutes.DELETE("/roles/:id", roleController.Delete)
+
+	superUserPrivateRoutes.GET("/users", userController.GetAll)
+	superUserPrivateRoutes.GET("/users/:id", userController.GetByID)
+	superUserPrivateRoutes.PUT("/users/:id", userController.Update)
+	superUserPrivateRoutes.DELETE("/users/:id", userController.Delete)
 
 	// user auth
 	e.POST("/register", userController.Register)

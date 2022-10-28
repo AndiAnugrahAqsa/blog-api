@@ -1,6 +1,7 @@
 package middlewares
 
 import (
+	"errors"
 	"mini-project/models"
 	"mini-project/util"
 	"net/http"
@@ -19,7 +20,7 @@ type jwtCustomClaims struct {
 func GenerateToken(user models.User) (string, error) {
 	claims := &jwtCustomClaims{
 		user.ID,
-		user.Role.ID,
+		user.RoleID,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
 		},
@@ -34,4 +35,19 @@ func GenerateToken(user models.User) (string, error) {
 	}
 
 	return tokenString, nil
+}
+
+func GetJWTSecretKey(token *jwt.Token) (interface{}, error) {
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+
+	if !ok {
+		return nil, errors.New("Can not map the token")
+	}
+
+	if claims["role_id"] != float64(1) {
+		return nil, errors.New("Can not access this path")
+	}
+
+	return []byte(util.GetConfig("JWT_SECRET_KEY")), nil
 }
