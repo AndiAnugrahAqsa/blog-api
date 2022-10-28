@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"mini-project/models"
+	"mini-project/util"
 	"net/http"
 	"time"
 
@@ -26,7 +27,7 @@ func GenerateToken(user models.User) string {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	tokenString, err := token.SignedString([]byte("secret"))
+	tokenString, err := token.SignedString([]byte(util.GetConfig("JWT_SECRET_KEY")))
 
 	if err != nil {
 		echo.NewHTTPError(http.StatusInternalServerError, "fail to generate token")
