@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo/v4"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserController struct {
@@ -51,6 +52,10 @@ func (cc *UserController) Register(c echo.Context) error {
 
 	userRequest.RoleID = 2
 
+	password, _ := bcrypt.GenerateFromPassword([]byte(userRequest.Password), bcrypt.DefaultCost)
+
+	userRequest.Password = string(password)
+
 	user := cc.Service.Repository.Register(userRequest)
 
 	return NewResponseSuccess(c, http.StatusCreated, "successfully register user", user.ToResponse())
@@ -62,6 +67,16 @@ func (cc *UserController) Login(c echo.Context) error {
 	c.Bind(&userRequest)
 
 	user := cc.Service.Repository.Login(userRequest)
+
+	if user.ID == 0 {
+		return echo.NewHTTPError(http.StatusOK, "email invalid")
+	}
+
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(userRequest.Password))
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusOK, "password invalid")
+	}
 
 	token := middlewares.GenerateToken(user)
 
