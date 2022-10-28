@@ -38,9 +38,7 @@ func (cr *UserRepositoryImpl) Register(userRequest models.UserRequest) models.Us
 func (cr *UserRepositoryImpl) Login(userRequest models.UserRequest) models.User {
 	user := userRequest.ToDBForm()
 
-	rec := database.DB.Create(&user)
-
-	rec.Last(&user)
+	database.DB.First(&user, "email = ?", user.Email)
 
 	return user
 }
