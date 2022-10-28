@@ -3,6 +3,7 @@ package routes
 import (
 	"mini-project/controllers"
 	"mini-project/middlewares"
+	"mini-project/util"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -20,6 +21,10 @@ func RoutesInit(e *echo.Echo) {
 	}
 
 	superUserPrivateRoutes.Use(middleware.JWTWithConfig(config))
+
+	userPrivateRoutes := e.Group("")
+
+	userPrivateRoutes.Use(middleware.JWT([]byte(util.GetConfig("JWT_SECRET_KEY"))))
 
 	superUserPrivateRoutes.GET("/roles", roleController.GetAll)
 	superUserPrivateRoutes.GET("/roles/:id", roleController.GetByID)
