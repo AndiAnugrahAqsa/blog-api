@@ -93,11 +93,11 @@ func (cc *UserController) Update(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
 
-	var blogUpdate models.UserRequest
+	var userUpdate models.UserRequest
 
-	c.Bind(&blogUpdate)
+	c.Bind(&userUpdate)
 
-	user := cc.Service.Repository.Update(id, blogUpdate)
+	user := cc.Service.Repository.Update(id, userUpdate)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully update user", user.ToResponse())
 }
