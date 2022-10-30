@@ -18,6 +18,13 @@ type CommentRepository interface {
 	Update(id int, commentRequest models.CommentRequest) models.Comment
 	Delete(id int) bool
 }
+
+type LikeRepository interface {
+	GetAll() []models.Like
+	GetByBlogID(id int) []models.Like
+	Create(likeRequest models.LikeRequest) models.Like
+	Delete(id int) bool
+}
 type RoleRepository interface {
 	GetAll() []models.Role
 	GetByID(id int) models.Role
