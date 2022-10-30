@@ -29,10 +29,7 @@ func (bc *BlogController) GetAll(c echo.Context) error {
 		blogsResponse = append(blogsResponse, blog.ToResponse())
 	}
 
-	return c.JSON(http.StatusOK, map[string]any{
-		"message": "successfully get all blogs",
-		"blogs":   blogsResponse,
-	})
+	return NewResponseSuccess(c, http.StatusOK, "successfully get all blogs", blogsResponse)
 }
 
 func (bc *BlogController) GetByUserID(c echo.Context) error {
@@ -48,10 +45,7 @@ func (bc *BlogController) GetByUserID(c echo.Context) error {
 		blogsResponse = append(blogsResponse, blog.ToResponse())
 	}
 
-	return c.JSON(http.StatusOK, map[string]any{
-		"message": "successfully get blogs by user id",
-		"blogs":   blogsResponse,
-	})
+	return NewResponseSuccess(c, http.StatusOK, "successfully get blogs by user id", blogsResponse)
 }
 
 func (bc *BlogController) GetByID(c echo.Context) error {
@@ -62,10 +56,7 @@ func (bc *BlogController) GetByID(c echo.Context) error {
 
 	blog = bc.Service.Repository.GetByID(id)
 
-	return c.JSON(http.StatusOK, map[string]any{
-		"message": "successfully get blog",
-		"blogs":   blog,
-	})
+	return NewResponseSuccess(c, http.StatusOK, "successfully get blog", blog.ToResponse())
 }
 
 func (bc *BlogController) Create(c echo.Context) error {
@@ -75,10 +66,7 @@ func (bc *BlogController) Create(c echo.Context) error {
 
 	blog := bc.Service.Repository.Create(blogRequest)
 
-	return c.JSON(http.StatusOK, map[string]any{
-		"message": "successfully create blog",
-		"blog":    blog.ToResponse(),
-	})
+	return NewResponseSuccess(c, http.StatusOK, "successfully create blog", blog.ToResponse())
 }
 
 func (bc *BlogController) Update(c echo.Context) error {
@@ -91,10 +79,7 @@ func (bc *BlogController) Update(c echo.Context) error {
 
 	blog := bc.Service.Repository.Update(id, blogUpdate)
 
-	return c.JSON(http.StatusOK, map[string]any{
-		"message": "successfully update blog",
-		"blog":    blog.ToResponse(),
-	})
+	return NewResponseSuccess(c, http.StatusOK, "successfully update blog", blog.ToResponse())
 }
 
 func (bc *BlogController) Delete(c echo.Context) error {
