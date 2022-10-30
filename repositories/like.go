@@ -25,10 +25,10 @@ func (cr *LikeRepositoryImpl) GetByID(id int) models.Like {
 	return like
 }
 
-func (cr *LikeRepositoryImpl) GetByBlogID(id int) []models.Like {
+func (cr *LikeRepositoryImpl) GetByBlogID(blog_id int) []models.Like {
 	var like []models.Like
 
-	database.DB.Preload(clause.Associations).Find(&like, "blog_id = ?", id)
+	database.DB.Preload(clause.Associations).Find(&like, "blog_id = ?", blog_id)
 
 	return like
 }
