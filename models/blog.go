@@ -18,7 +18,6 @@ type Blog struct {
 	UpdatedAt  time.Time      `json:"updated_at"`
 	DeletedAt  gorm.DeletedAt `json:"deleted_at"`
 	Comments   []Comment      `json:"comment"`
-	LikeAmount int            `json:"like_amount"`
 	Likes      []Like         `json:"likes"`
 }
 
@@ -45,7 +44,7 @@ func (b *Blog) ToResponse() BlogResponse {
 		Comments:     commentsResponse,
 		CreatedAt:    b.CreatedAt,
 		UpdatedAt:    b.UpdatedAt,
-		LikeAmount:   b.LikeAmount,
+		LikeAmount:   len(likesResponse),
 		Likes:        likesResponse,
 	}
 }
