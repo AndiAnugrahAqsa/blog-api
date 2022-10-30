@@ -19,8 +19,8 @@ func (bs *BlogService) GetAll() []models.Blog {
 	return bs.Repository.GetAll()
 }
 
-func (bs *BlogService) GetByUserID(user_id int) []models.Blog {
-	return bs.Repository.GetByUserID(user_id)
+func (bs *BlogService) GetByUserID(userID int) []models.Blog {
+	return bs.Repository.GetByUserID(userID)
 }
 
 func (bs *BlogService) GetByID(id int) models.Blog {
