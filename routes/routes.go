@@ -11,6 +11,7 @@ import (
 
 var categoryController = controllers.NewCategoryController()
 var commentController = controllers.NewCommentController()
+var likeController = controllers.NewLikeController()
 var roleController = controllers.NewRoleController()
 var userController = controllers.NewUserController()
 
@@ -40,6 +41,11 @@ func RoutesInit(e *echo.Echo) {
 	userPrivateRoutes.POST("/comments", commentController.Create)
 	userPrivateRoutes.PUT("/comments/:id", commentController.Update)
 	userPrivateRoutes.DELETE("/comments/:id", commentController.Delete)
+
+	e.GET("/likes", likeController.GetAll)
+	e.GET("likes/blog/:blog_id", likeController.GetByBlogID)
+	userPrivateRoutes.POST("/likes", likeController.Create)
+	userPrivateRoutes.DELETE("/likes/:id", likeController.Delete)
 
 	superUserPrivateRoutes.GET("/roles", roleController.GetAll)
 	superUserPrivateRoutes.GET("/roles/:id", roleController.GetByID)
