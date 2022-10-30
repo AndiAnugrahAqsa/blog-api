@@ -18,13 +18,20 @@ type Blog struct {
 	UpdatedAt  time.Time      `json:"updated_at"`
 	DeletedAt  gorm.DeletedAt `json:"deleted_at"`
 	Comments   []Comment      `json:"comment"`
+	LikeAmount int            `json:"like_amount"`
+	Likes      []Like         `json:"likes"`
 }
 
 func (b *Blog) ToResponse() BlogResponse {
 	var commentsResponse []CommentResponse
+	var likesResponse []LikeResponse
 
 	for _, comment := range b.Comments {
 		commentsResponse = append(commentsResponse, comment.ToResponse())
+	}
+
+	for _, like := range b.Likes {
+		likesResponse = append(likesResponse, like.ToResponse())
 	}
 
 	return BlogResponse{
@@ -38,6 +45,8 @@ func (b *Blog) ToResponse() BlogResponse {
 		Comments:     commentsResponse,
 		CreatedAt:    b.CreatedAt,
 		UpdatedAt:    b.UpdatedAt,
+		LikeAmount:   b.LikeAmount,
+		Likes:        likesResponse,
 	}
 }
 
@@ -69,4 +78,6 @@ type BlogResponse struct {
 	UpdatedAt    time.Time         `json:"updated_at"`
 	DeletedAt    time.Time         `json:"deleted_at"`
 	Comments     []CommentResponse `json:"comments"`
+	LikeAmount   int               `json:"like_amount"`
+	Likes        []LikeResponse    `json:"likes"`
 }
