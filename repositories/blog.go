@@ -27,11 +27,11 @@ func (br *BlogRepositoryImpl) GetAll() []models.Blog {
 	return blogs
 }
 
-func (br *BlogRepositoryImpl) GetByUserID(user_id int) []models.Blog {
+func (br *BlogRepositoryImpl) GetByUserID(userID int) []models.Blog {
 	var blogsFromDB []models.Blog
 	var blogs []models.Blog
 
-	database.DB.Preload(clause.Associations).Find(&blogsFromDB, "user_id = ?", user_id)
+	database.DB.Preload(clause.Associations).Find(&blogsFromDB, "user_id = ?", userID)
 
 	for _, blog := range blogsFromDB {
 		blog.Comments = commentRepository.GetByBlogID(blog.ID)
