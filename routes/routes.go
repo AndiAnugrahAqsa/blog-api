@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
+var blogController = controllers.NewBlogController()
 var categoryController = controllers.NewCategoryController()
 var commentController = controllers.NewCommentController()
 var likeController = controllers.NewLikeController()
@@ -28,6 +29,13 @@ func RoutesInit(e *echo.Echo) {
 	userPrivateRoutes := e.Group("")
 
 	userPrivateRoutes.Use(middleware.JWT([]byte(util.GetConfig("JWT_SECRET_KEY"))))
+
+	e.GET("/blogs", blogController.GetAll)
+	e.GET("/blogs/user/:user_id", blogController.GetByUserID)
+	e.GET("/blogs/:id", blogController.GetByID)
+	superUserPrivateRoutes.POST("/blogs", blogController.Create)
+	superUserPrivateRoutes.PUT("/blogs/:id", blogController.Update)
+	superUserPrivateRoutes.DELETE("/blogs/:id", blogController.Delete)
 
 	e.GET("/categories", categoryController.GetAll)
 	e.GET("/categories/:id", categoryController.GetByID)
