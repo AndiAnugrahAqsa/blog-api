@@ -2,6 +2,15 @@ package repositories
 
 import "mini-project/models"
 
+type BlogRepository interface {
+	GetAll() []models.Blog
+	GetByUserID(user_id int) []models.Blog
+	GetByID(id int) models.Blog
+	Create(blogRequest models.BlogRequest) models.Blog
+	Update(id int, blogRequest models.BlogRequest) models.Blog
+	Delete(id int) bool
+}
+
 type CategoryRepository interface {
 	GetAll() []models.Category
 	GetByID(id int) models.Category
