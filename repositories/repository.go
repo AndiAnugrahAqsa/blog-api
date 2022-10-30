@@ -9,6 +9,15 @@ type CategoryRepository interface {
 	Update(id int, categoryRequest models.CategoryRequest) models.Category
 	Delete(id int) bool
 }
+
+type CommentRepository interface {
+	GetAll() []models.Comment
+	GetByBlogID(blog_id int) []models.Comment
+	GetByID(id int) models.Comment
+	Create(commentRequest models.CommentRequest) models.Comment
+	Update(id int, commentRequest models.CommentRequest) models.Comment
+	Delete(id int) bool
+}
 type RoleRepository interface {
 	GetAll() []models.Role
 	GetByID(id int) models.Role
