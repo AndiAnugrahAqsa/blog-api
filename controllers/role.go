@@ -34,6 +34,10 @@ func (rc *RoleController) GetByID(c echo.Context) error {
 
 	role = rc.Service.Repository.GetByID(id)
 
+	if role.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "role doesn't exist")
+	}
+
 	return NewResponseSuccess(c, http.StatusOK, "successfully get role", role)
 }
 
@@ -64,6 +68,10 @@ func (rc *RoleController) Update(c echo.Context) error {
 	}
 
 	role := rc.Service.Repository.Update(id, roleUpdate)
+
+	if role.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "role doesn't exist")
+	}
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully update role", role)
 }
