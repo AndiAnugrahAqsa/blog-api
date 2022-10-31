@@ -50,6 +50,10 @@ func (cc *UserController) Register(c echo.Context) error {
 
 	c.Bind(&userRequest)
 
+	if err := userRequest.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
+
 	userRequest.RoleID = 2
 
 	password, _ := bcrypt.GenerateFromPassword([]byte(userRequest.Password), bcrypt.DefaultCost)
@@ -96,6 +100,10 @@ func (cc *UserController) Update(c echo.Context) error {
 	var userUpdate models.UserRequest
 
 	c.Bind(&userUpdate)
+
+	if err := userUpdate.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
 
 	user := cc.Service.Repository.Update(id, userUpdate)
 
