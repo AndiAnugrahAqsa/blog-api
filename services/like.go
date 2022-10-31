@@ -15,18 +15,18 @@ func NewLikeService() LikeService {
 	}
 }
 
-func (cs *LikeService) GetAll() []models.Like {
-	return cs.Repository.GetAll()
+func (ls *LikeService) GetAll() []models.Like {
+	return ls.Repository.GetAll()
 }
 
-func (cs *LikeService) GetByBlogID(blog_id int) []models.Like {
-	return cs.Repository.GetByBlogID(blog_id)
+func (ls *LikeService) GetByBlogID(blog_id int) []models.Like {
+	return ls.Repository.GetByBlogID(blog_id)
 }
 
-func (cs *LikeService) Create(likeRequest models.LikeRequest) models.Like {
-	return cs.Repository.Create(likeRequest)
+func (ls *LikeService) Create(likeRequest models.LikeRequest) models.Like {
+	return ls.Repository.Create(likeRequest)
 }
 
-func (cs *LikeService) Delete(id int) bool {
-	return cs.Repository.Delete(id)
+func (ls *LikeService) Delete(id int) bool {
+	return ls.Repository.Delete(id)
 }
