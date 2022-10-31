@@ -9,7 +9,7 @@ import (
 
 type RoleRepositoryImpl struct{}
 
-func (cr *RoleRepositoryImpl) GetAll() []models.Role {
+func (rr *RoleRepositoryImpl) GetAll() []models.Role {
 	var roles []models.Role
 
 	database.DB.Preload(clause.Associations).Find(&roles)
@@ -17,7 +17,7 @@ func (cr *RoleRepositoryImpl) GetAll() []models.Role {
 	return roles
 }
 
-func (cr *RoleRepositoryImpl) GetByID(id int) models.Role {
+func (rr *RoleRepositoryImpl) GetByID(id int) models.Role {
 	var role models.Role
 
 	database.DB.Preload(clause.Associations).First(&role, id)
@@ -25,7 +25,7 @@ func (cr *RoleRepositoryImpl) GetByID(id int) models.Role {
 	return role
 }
 
-func (cr *RoleRepositoryImpl) Create(roleRequest models.RoleRequest) models.Role {
+func (rr *RoleRepositoryImpl) Create(roleRequest models.RoleRequest) models.Role {
 	role := roleRequest.ToDBForm()
 
 	rec := database.DB.Create(&role)
@@ -35,8 +35,8 @@ func (cr *RoleRepositoryImpl) Create(roleRequest models.RoleRequest) models.Role
 	return role
 }
 
-func (cr *RoleRepositoryImpl) Update(id int, roleRequest models.RoleRequest) models.Role {
-	role := cr.GetByID(id)
+func (rr *RoleRepositoryImpl) Update(id int, roleRequest models.RoleRequest) models.Role {
+	role := rr.GetByID(id)
 
 	if role.ID == 0 {
 		return role
@@ -51,8 +51,8 @@ func (cr *RoleRepositoryImpl) Update(id int, roleRequest models.RoleRequest) mod
 	return role
 }
 
-func (cr *RoleRepositoryImpl) Delete(id int) bool {
-	role := cr.GetByID(id)
+func (rr *RoleRepositoryImpl) Delete(id int) bool {
+	role := rr.GetByID(id)
 
 	rec := database.DB.Delete(&role)
 
