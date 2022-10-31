@@ -24,7 +24,7 @@ func (cs *UserService) GetByID(id int) models.User {
 }
 
 func (cs *UserService) Register(userRequest models.UserRequest) models.User {
-	return cs.Repository.Register(userRequest)
+	return cs.Repository.Create(userRequest)
 }
 
 func (cs *UserService) Login(userRequest models.UserRequest) models.User {
