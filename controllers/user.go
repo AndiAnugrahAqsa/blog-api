@@ -42,6 +42,10 @@ func (uc *UserController) GetByID(c echo.Context) error {
 
 	user = uc.Service.Repository.GetByID(id)
 
+	if user.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "user doesn't exist")
+	}
+
 	return NewResponseSuccess(c, http.StatusOK, "successfully get user", user.ToResponse())
 }
 
@@ -120,6 +124,10 @@ func (uc *UserController) Update(c echo.Context) error {
 	}
 
 	user := uc.Service.Repository.Update(id, userUpdate)
+
+	if user.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "user doesn't exist")
+	}
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully update user", user.ToResponse())
 }
