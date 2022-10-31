@@ -54,6 +54,10 @@ func (cc *LikeController) Create(c echo.Context) error {
 
 	c.Bind(&likeRequest)
 
+	if err := likeRequest.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
+
 	like := cc.Service.Repository.Create(likeRequest)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully create like", like.ToResponse())
