@@ -35,6 +35,10 @@ func (cc *CategoryController) GetByID(c echo.Context) error {
 
 	category = cc.Service.Repository.GetByID(id)
 
+	if category.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "category doesn't exist")
+	}
+
 	return NewResponseSuccess(c, http.StatusOK, "successfully get category", category)
 }
 
@@ -65,6 +69,10 @@ func (cc *CategoryController) Update(c echo.Context) error {
 	}
 
 	category := cc.Service.Repository.Update(id, categoryUpdate)
+
+	if category.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "category doesn't exist")
+	}
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully update category", category)
 }
