@@ -19,25 +19,25 @@ func NewRoleController() RoleController {
 	}
 }
 
-func (cc *RoleController) GetAll(c echo.Context) error {
+func (rc *RoleController) GetAll(c echo.Context) error {
 	var roles []models.Role
-	roles = cc.Service.Repository.GetAll()
+	roles = rc.Service.Repository.GetAll()
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully get all roles", roles)
 }
 
-func (cc *RoleController) GetByID(c echo.Context) error {
+func (rc *RoleController) GetByID(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
 
 	var role models.Role
 
-	role = cc.Service.Repository.GetByID(id)
+	role = rc.Service.Repository.GetByID(id)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully get role", role)
 }
 
-func (cc *RoleController) Create(c echo.Context) error {
+func (rc *RoleController) Create(c echo.Context) error {
 	var roleRequest models.RoleRequest
 
 	c.Bind(&roleRequest)
@@ -46,12 +46,12 @@ func (cc *RoleController) Create(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
 	}
 
-	role := cc.Service.Repository.Create(roleRequest)
+	role := rc.Service.Repository.Create(roleRequest)
 
 	return NewResponseSuccess(c, http.StatusCreated, "successfully create role", role)
 }
 
-func (cc *RoleController) Update(c echo.Context) error {
+func (rc *RoleController) Update(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
 
@@ -63,16 +63,16 @@ func (cc *RoleController) Update(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
 	}
 
-	role := cc.Service.Repository.Update(id, roleUpdate)
+	role := rc.Service.Repository.Update(id, roleUpdate)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully update role", role)
 }
 
-func (cc *RoleController) Delete(c echo.Context) error {
+func (rc *RoleController) Delete(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
 
-	isDeleted := cc.Service.Repository.Delete(id)
+	isDeleted := rc.Service.Repository.Delete(id)
 
 	if !isDeleted {
 		return c.JSON(http.StatusOK, map[string]any{
