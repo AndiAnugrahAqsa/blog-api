@@ -66,6 +66,10 @@ func (br *BlogRepositoryImpl) Create(blogRequest models.BlogRequest) models.Blog
 func (br *BlogRepositoryImpl) Update(id int, blogRequest models.BlogRequest) models.Blog {
 	blog := br.GetByID(id)
 
+	if blog.ID == 0 {
+		return blog
+	}
+
 	blog.UserID = blogRequest.UserID
 	blog.CategoryID = blogRequest.CategoryID
 	blog.Title = blogRequest.Title
