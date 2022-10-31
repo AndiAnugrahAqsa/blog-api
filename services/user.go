@@ -23,6 +23,10 @@ func (cs *UserService) GetByID(id int) models.User {
 	return cs.Repository.GetByID(id)
 }
 
+func (cs *UserService) Create(userRequest models.UserRequest) models.User {
+	return cs.Repository.Create(userRequest)
+}
+
 func (cs *UserService) Register(userRequest models.UserRequest) models.User {
 	return cs.Repository.Create(userRequest)
 }
