@@ -64,6 +64,10 @@ func (bc *BlogController) Create(c echo.Context) error {
 
 	c.Bind(&blogRequest)
 
+	if err := blogRequest.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
+
 	blog := bc.Service.Repository.Create(blogRequest)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully create blog", blog.ToResponse())
@@ -76,6 +80,10 @@ func (bc *BlogController) Update(c echo.Context) error {
 	var blogUpdate models.BlogRequest
 
 	c.Bind(&blogUpdate)
+
+	if err := blogUpdate.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
 
 	blog := bc.Service.Repository.Update(id, blogUpdate)
 
