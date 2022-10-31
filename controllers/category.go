@@ -76,7 +76,7 @@ func (cc *CategoryController) Delete(c echo.Context) error {
 	isDeleted := cc.Service.Repository.Delete(id)
 
 	if !isDeleted {
-		return c.JSON(http.StatusOK, map[string]any{
+		return c.JSON(http.StatusInternalServerError, map[string]any{
 			"message": "unsuccessfully delete category",
 		})
 	}
