@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 )
 
@@ -17,8 +18,8 @@ type Like struct {
 }
 
 type LikeRequest struct {
-	UserID int `json:"user_id"`
-	BlogID int `json:"blog_id"`
+	UserID int `json:"user_id" validate:"required"`
+	BlogID int `json:"blog_id" validate:"required"`
 }
 
 func (lr *LikeRequest) ToDBForm() Like {
@@ -26,6 +27,14 @@ func (lr *LikeRequest) ToDBForm() Like {
 		UserID: lr.UserID,
 		BlogID: lr.BlogID,
 	}
+}
+
+func (lr *LikeRequest) Validate() error {
+	validate := validator.New()
+
+	err := validate.Struct(lr)
+
+	return err
 }
 
 type LikeResponse struct {
