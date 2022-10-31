@@ -21,9 +21,9 @@ func NewUserController() UserController {
 	}
 }
 
-func (cc *UserController) GetAll(c echo.Context) error {
+func (uc *UserController) GetAll(c echo.Context) error {
 	var users []models.User
-	users = cc.Service.Repository.GetAll()
+	users = uc.Service.Repository.GetAll()
 
 	var usersResponse []models.UserResponse
 
@@ -34,18 +34,18 @@ func (cc *UserController) GetAll(c echo.Context) error {
 	return NewResponseSuccess(c, http.StatusOK, "successfully get all users", usersResponse)
 }
 
-func (cc *UserController) GetByID(c echo.Context) error {
+func (uc *UserController) GetByID(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
 
 	var user models.User
 
-	user = cc.Service.Repository.GetByID(id)
+	user = uc.Service.Repository.GetByID(id)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully get user", user.ToResponse())
 }
 
-func (cc *UserController) Create(c echo.Context) error {
+func (uc *UserController) Create(c echo.Context) error {
 	var userRequest models.UserRequest
 
 	c.Bind(&userRequest)
@@ -58,12 +58,12 @@ func (cc *UserController) Create(c echo.Context) error {
 		userRequest.RoleID = 2
 	}
 
-	user := cc.Service.Repository.Create(userRequest)
+	user := uc.Service.Repository.Create(userRequest)
 
 	return NewResponseSuccess(c, http.StatusCreated, "successfully register user", user.ToResponse())
 }
 
-func (cc *UserController) Register(c echo.Context) error {
+func (uc *UserController) Register(c echo.Context) error {
 	var userRequest models.UserRequest
 
 	c.Bind(&userRequest)
@@ -74,17 +74,17 @@ func (cc *UserController) Register(c echo.Context) error {
 
 	userRequest.RoleID = 2
 
-	user := cc.Service.Repository.Create(userRequest)
+	user := uc.Service.Repository.Create(userRequest)
 
 	return NewResponseSuccess(c, http.StatusCreated, "successfully register user", user.ToResponse())
 }
 
-func (cc *UserController) Login(c echo.Context) error {
+func (uc *UserController) Login(c echo.Context) error {
 	var userRequest models.UserRequest
 
 	c.Bind(&userRequest)
 
-	user := cc.Service.Repository.Login(userRequest)
+	user := uc.Service.Repository.Login(userRequest)
 
 	if user.ID == 0 {
 		return echo.NewHTTPError(http.StatusOK, "email invalid")
@@ -107,7 +107,7 @@ func (cc *UserController) Login(c echo.Context) error {
 	})
 }
 
-func (cc *UserController) Update(c echo.Context) error {
+func (uc *UserController) Update(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
 
@@ -119,16 +119,16 @@ func (cc *UserController) Update(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
 	}
 
-	user := cc.Service.Repository.Update(id, userUpdate)
+	user := uc.Service.Repository.Update(id, userUpdate)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully update user", user.ToResponse())
 }
 
-func (cc *UserController) Delete(c echo.Context) error {
+func (uc *UserController) Delete(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
 
-	isDeleted := cc.Service.Repository.Delete(id)
+	isDeleted := uc.Service.Repository.Delete(id)
 
 	if !isDeleted {
 		return c.JSON(http.StatusOK, map[string]any{
