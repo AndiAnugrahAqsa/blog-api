@@ -38,6 +38,10 @@ func (cr *RoleRepositoryImpl) Create(roleRequest models.RoleRequest) models.Role
 func (cr *RoleRepositoryImpl) Update(id int, roleRequest models.RoleRequest) models.Role {
 	role := cr.GetByID(id)
 
+	if role.ID == 0 {
+		return role
+	}
+
 	role.Name = roleRequest.Name
 
 	rec := database.DB.Save(&role)
