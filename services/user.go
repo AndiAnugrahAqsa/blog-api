@@ -27,10 +27,6 @@ func (cs *UserService) Create(userRequest models.UserRequest) models.User {
 	return cs.Repository.Create(userRequest)
 }
 
-func (cs *UserService) Register(userRequest models.UserRequest) models.User {
-	return cs.Repository.Create(userRequest)
-}
-
 func (cs *UserService) Login(userRequest models.UserRequest) models.User {
 	return cs.Repository.Login(userRequest)
 }

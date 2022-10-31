@@ -60,7 +60,7 @@ func (cc *UserController) Register(c echo.Context) error {
 
 	userRequest.Password = string(password)
 
-	user := cc.Service.Repository.Register(userRequest)
+	user := cc.Service.Repository.Create(userRequest)
 
 	return NewResponseSuccess(c, http.StatusCreated, "successfully register user", user.ToResponse())
 }
