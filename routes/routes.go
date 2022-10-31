@@ -63,6 +63,7 @@ func RoutesInit(e *echo.Echo) {
 
 	superUserPrivateRoutes.GET("/users", userController.GetAll)
 	superUserPrivateRoutes.GET("/users/:id", userController.GetByID)
+	superUserPrivateRoutes.POST("/users", userController.Create)
 	superUserPrivateRoutes.PUT("/users/:id", userController.Update)
 	superUserPrivateRoutes.DELETE("/users/:id", userController.Delete)
 
