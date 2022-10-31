@@ -9,7 +9,7 @@ import (
 
 type LikeRepositoryImpl struct{}
 
-func (cr *LikeRepositoryImpl) GetAll() []models.Like {
+func (lr *LikeRepositoryImpl) GetAll() []models.Like {
 	var likes []models.Like
 
 	database.DB.Preload(clause.Associations).Find(&likes)
@@ -17,7 +17,7 @@ func (cr *LikeRepositoryImpl) GetAll() []models.Like {
 	return likes
 }
 
-func (cr *LikeRepositoryImpl) GetByID(id int) models.Like {
+func (lr *LikeRepositoryImpl) GetByID(id int) models.Like {
 	var like models.Like
 
 	database.DB.Preload(clause.Associations).First(&like, id)
@@ -25,7 +25,7 @@ func (cr *LikeRepositoryImpl) GetByID(id int) models.Like {
 	return like
 }
 
-func (cr *LikeRepositoryImpl) GetByBlogID(blog_id int) []models.Like {
+func (lr *LikeRepositoryImpl) GetByBlogID(blog_id int) []models.Like {
 	var like []models.Like
 
 	database.DB.Preload(clause.Associations).Find(&like, "blog_id = ?", blog_id)
@@ -33,7 +33,7 @@ func (cr *LikeRepositoryImpl) GetByBlogID(blog_id int) []models.Like {
 	return like
 }
 
-func (cr *LikeRepositoryImpl) Create(likeRequest models.LikeRequest) models.Like {
+func (lr *LikeRepositoryImpl) Create(likeRequest models.LikeRequest) models.Like {
 	like := likeRequest.ToDBForm()
 
 	rec := database.DB.Create(&like)
@@ -43,8 +43,8 @@ func (cr *LikeRepositoryImpl) Create(likeRequest models.LikeRequest) models.Like
 	return like
 }
 
-func (cr *LikeRepositoryImpl) Delete(id int) bool {
-	like := cr.GetByID(id)
+func (lr *LikeRepositoryImpl) Delete(id int) bool {
+	like := lr.GetByID(id)
 
 	rec := database.DB.Delete(&like)
 
