@@ -46,6 +46,10 @@ func (cr *CommentRepositoryImpl) Create(commentRequest models.CommentRequest) mo
 func (cr *CommentRepositoryImpl) Update(id int, commentRequest models.CommentRequest) models.Comment {
 	comment := cr.GetByID(id)
 
+	if comment.ID == 0 {
+		return comment
+	}
+
 	comment.UserID = commentRequest.UserID
 	comment.BlogID = commentRequest.BlogID
 	comment.Content = commentRequest.Content
