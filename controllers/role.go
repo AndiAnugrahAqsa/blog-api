@@ -42,6 +42,10 @@ func (cc *RoleController) Create(c echo.Context) error {
 
 	c.Bind(&roleRequest)
 
+	if err := roleRequest.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
+
 	role := cc.Service.Repository.Create(roleRequest)
 
 	return NewResponseSuccess(c, http.StatusCreated, "successfully create role", role)
@@ -54,6 +58,10 @@ func (cc *RoleController) Update(c echo.Context) error {
 	var roleUpdate models.RoleRequest
 
 	c.Bind(&roleUpdate)
+
+	if err := roleUpdate.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
 
 	role := cc.Service.Repository.Update(id, roleUpdate)
 
