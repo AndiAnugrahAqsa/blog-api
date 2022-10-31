@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 )
 
@@ -21,10 +22,10 @@ type User struct {
 
 type UserRequest struct {
 	RoleID    int    `json:"role_id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
-	Password  string `json:"password"`
+	FirstName string `json:"first_name" validate:"required"`
+	LastName  string `json:"last_name" validate:"required"`
+	Email     string `json:"email" validate:"required,email"`
+	Password  string `json:"password" validate:"required"`
 }
 
 func (ur *UserRequest) ToDBForm() User {
@@ -35,6 +36,14 @@ func (ur *UserRequest) ToDBForm() User {
 		Email:     ur.Email,
 		Password:  ur.Password,
 	}
+}
+
+func (ur *UserRequest) Validate() error {
+	validate := validator.New()
+
+	err := validate.Struct(ur)
+
+	return err
 }
 
 type UserResponse struct {
