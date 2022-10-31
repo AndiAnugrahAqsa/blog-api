@@ -15,26 +15,26 @@ func NewUserService() UserService {
 	}
 }
 
-func (cs *UserService) GetAll() []models.User {
-	return cs.Repository.GetAll()
+func (us *UserService) GetAll() []models.User {
+	return us.Repository.GetAll()
 }
 
-func (cs *UserService) GetByID(id int) models.User {
-	return cs.Repository.GetByID(id)
+func (us *UserService) GetByID(id int) models.User {
+	return us.Repository.GetByID(id)
 }
 
-func (cs *UserService) Create(userRequest models.UserRequest) models.User {
-	return cs.Repository.Create(userRequest)
+func (us *UserService) Create(userRequest models.UserRequest) models.User {
+	return us.Repository.Create(userRequest)
 }
 
-func (cs *UserService) Login(userRequest models.UserRequest) models.User {
-	return cs.Repository.Login(userRequest)
+func (us *UserService) Login(userRequest models.UserRequest) models.User {
+	return us.Repository.Login(userRequest)
 }
 
-func (cs *UserService) Update(id int, userRequest models.UserRequest) models.User {
-	return cs.Repository.Update(id, userRequest)
+func (us *UserService) Update(id int, userRequest models.UserRequest) models.User {
+	return us.Repository.Update(id, userRequest)
 }
 
-func (cs *UserService) Delete(id int) bool {
-	return cs.Repository.Delete(id)
+func (us *UserService) Delete(id int) bool {
+	return us.Repository.Delete(id)
 }
