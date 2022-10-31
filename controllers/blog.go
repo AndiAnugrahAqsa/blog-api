@@ -56,6 +56,10 @@ func (bc *BlogController) GetByID(c echo.Context) error {
 
 	blog = bc.Service.Repository.GetByID(id)
 
+	if blog.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "blog doesn't exist")
+	}
+
 	return NewResponseSuccess(c, http.StatusOK, "successfully get blog", blog.ToResponse())
 }
 
@@ -86,6 +90,10 @@ func (bc *BlogController) Update(c echo.Context) error {
 	}
 
 	blog := bc.Service.Repository.Update(id, blogUpdate)
+
+	if blog.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "blog doesn't exist")
+	}
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully update blog", blog.ToResponse())
 }
