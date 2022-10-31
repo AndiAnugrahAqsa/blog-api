@@ -15,22 +15,22 @@ func NewRoleService() RoleService {
 	}
 }
 
-func (cs *RoleService) GetAll() []models.Role {
-	return cs.Repository.GetAll()
+func (rs *RoleService) GetAll() []models.Role {
+	return rs.Repository.GetAll()
 }
 
-func (cs *RoleService) GetByID(id int) models.Role {
-	return cs.Repository.GetByID(id)
+func (rs *RoleService) GetByID(id int) models.Role {
+	return rs.Repository.GetByID(id)
 }
 
-func (cs *RoleService) Create(roleRequest models.RoleRequest) models.Role {
-	return cs.Repository.Create(roleRequest)
+func (rs *RoleService) Create(roleRequest models.RoleRequest) models.Role {
+	return rs.Repository.Create(roleRequest)
 }
 
-func (cs *RoleService) Update(id int, roleRequest models.RoleRequest) models.Role {
-	return cs.Repository.Update(id, roleRequest)
+func (rs *RoleService) Update(id int, roleRequest models.RoleRequest) models.Role {
+	return rs.Repository.Update(id, roleRequest)
 }
 
-func (cs *RoleService) Delete(id int) bool {
-	return cs.Repository.Delete(id)
+func (rs *RoleService) Delete(id int) bool {
+	return rs.Repository.Delete(id)
 }
