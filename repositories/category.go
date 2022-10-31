@@ -36,6 +36,10 @@ func (cr *CategoryRepositoryImpl) Create(categoryRequest models.CategoryRequest)
 func (cr *CategoryRepositoryImpl) Update(id int, categoryRequest models.CategoryRequest) models.Category {
 	category := cr.GetByID(id)
 
+	if category.ID == 0 {
+		return category
+	}
+
 	category.Name = categoryRequest.Name
 
 	rec := database.DB.Save(&category)
