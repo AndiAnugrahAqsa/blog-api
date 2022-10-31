@@ -4,6 +4,7 @@ import (
 	"mini-project/database"
 	"mini-project/models"
 
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm/clause"
 )
 
@@ -27,6 +28,10 @@ func (cr *UserRepositoryImpl) GetByID(id int) models.User {
 
 func (cr *UserRepositoryImpl) Create(userRequest models.UserRequest) models.User {
 	user := userRequest.ToDBForm()
+
+	password, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+
+	user.Password = string(password)
 
 	rec := database.DB.Create(&user)
 
