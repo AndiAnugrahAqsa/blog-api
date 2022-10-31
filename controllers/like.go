@@ -19,9 +19,9 @@ func NewLikeController() LikeController {
 	}
 }
 
-func (cc *LikeController) GetAll(c echo.Context) error {
+func (lc *LikeController) GetAll(c echo.Context) error {
 	var likes []models.Like
-	likes = cc.Service.Repository.GetAll()
+	likes = lc.Service.Repository.GetAll()
 
 	var likesResponse []models.LikeResponse
 
@@ -32,13 +32,13 @@ func (cc *LikeController) GetAll(c echo.Context) error {
 	return NewResponseSuccess(c, http.StatusOK, "successfully get all likes", likesResponse)
 }
 
-func (cc *LikeController) GetByBlogID(c echo.Context) error {
+func (lc *LikeController) GetByBlogID(c echo.Context) error {
 	blogIDString := c.Param("blog_id")
 	blogID, _ := strconv.Atoi(blogIDString)
 
 	var likes []models.Like
 
-	likes = cc.Service.Repository.GetByBlogID(blogID)
+	likes = lc.Service.Repository.GetByBlogID(blogID)
 
 	var likesResponse []models.LikeResponse
 
@@ -49,7 +49,7 @@ func (cc *LikeController) GetByBlogID(c echo.Context) error {
 	return NewResponseSuccess(c, http.StatusOK, "successfully get likes by blog id", likesResponse)
 }
 
-func (cc *LikeController) Create(c echo.Context) error {
+func (lc *LikeController) Create(c echo.Context) error {
 	var likeRequest models.LikeRequest
 
 	c.Bind(&likeRequest)
@@ -58,16 +58,16 @@ func (cc *LikeController) Create(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
 	}
 
-	like := cc.Service.Repository.Create(likeRequest)
+	like := lc.Service.Repository.Create(likeRequest)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully create like", like.ToResponse())
 }
 
-func (cc *LikeController) Delete(c echo.Context) error {
+func (lc *LikeController) Delete(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
 
-	isDeleted := cc.Service.Repository.Delete(id)
+	isDeleted := lc.Service.Repository.Delete(id)
 
 	if !isDeleted {
 		return c.JSON(http.StatusInternalServerError, map[string]any{
