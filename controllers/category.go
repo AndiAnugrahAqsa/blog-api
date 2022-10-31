@@ -43,6 +43,10 @@ func (cc *CategoryController) Create(c echo.Context) error {
 
 	c.Bind(&categoryRequest)
 
+	if err := categoryRequest.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
+
 	category := cc.Service.Repository.Create(categoryRequest)
 
 	return NewResponseSuccess(c, http.StatusCreated, "successfully create category", category)
@@ -55,6 +59,10 @@ func (cc *CategoryController) Update(c echo.Context) error {
 	var categoryUpdate models.CategoryRequest
 
 	c.Bind(&categoryUpdate)
+
+	if err := categoryUpdate.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
 
 	category := cc.Service.Repository.Update(id, categoryUpdate)
 
