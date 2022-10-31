@@ -10,7 +10,7 @@ import (
 
 type UserRepositoryImpl struct{}
 
-func (cr *UserRepositoryImpl) GetAll() []models.User {
+func (ur *UserRepositoryImpl) GetAll() []models.User {
 	var users []models.User
 
 	database.DB.Preload(clause.Associations).Find(&users)
@@ -18,7 +18,7 @@ func (cr *UserRepositoryImpl) GetAll() []models.User {
 	return users
 }
 
-func (cr *UserRepositoryImpl) GetByID(id int) models.User {
+func (ur *UserRepositoryImpl) GetByID(id int) models.User {
 	var user models.User
 
 	database.DB.Preload(clause.Associations).First(&user, id)
@@ -26,7 +26,7 @@ func (cr *UserRepositoryImpl) GetByID(id int) models.User {
 	return user
 }
 
-func (cr *UserRepositoryImpl) Create(userRequest models.UserRequest) models.User {
+func (ur *UserRepositoryImpl) Create(userRequest models.UserRequest) models.User {
 	user := userRequest.ToDBForm()
 
 	password, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
@@ -40,7 +40,7 @@ func (cr *UserRepositoryImpl) Create(userRequest models.UserRequest) models.User
 	return user
 }
 
-func (cr *UserRepositoryImpl) Login(userRequest models.UserRequest) models.User {
+func (ur *UserRepositoryImpl) Login(userRequest models.UserRequest) models.User {
 	user := userRequest.ToDBForm()
 
 	database.DB.First(&user, "email = ?", user.Email)
@@ -48,8 +48,8 @@ func (cr *UserRepositoryImpl) Login(userRequest models.UserRequest) models.User 
 	return user
 }
 
-func (cr *UserRepositoryImpl) Update(id int, userRequest models.UserRequest) models.User {
-	user := cr.GetByID(id)
+func (ur *UserRepositoryImpl) Update(id int, userRequest models.UserRequest) models.User {
+	user := ur.GetByID(id)
 
 	if user.ID == 0 {
 		return user
@@ -68,8 +68,8 @@ func (cr *UserRepositoryImpl) Update(id int, userRequest models.UserRequest) mod
 	return user
 }
 
-func (cr *UserRepositoryImpl) Delete(id int) bool {
-	user := cr.GetByID(id)
+func (ur *UserRepositoryImpl) Delete(id int) bool {
+	user := ur.GetByID(id)
 
 	rec := database.DB.Delete(&user)
 
