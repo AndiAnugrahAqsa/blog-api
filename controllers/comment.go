@@ -66,6 +66,10 @@ func (cc *CommentController) Create(c echo.Context) error {
 
 	c.Bind(&commentRequest)
 
+	if err := commentRequest.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
+
 	comment := cc.Service.Repository.Create(commentRequest)
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully create comment", comment.ToResponse())
@@ -78,6 +82,10 @@ func (cc *CommentController) Update(c echo.Context) error {
 	var commentUpdate models.CommentRequest
 
 	c.Bind(&commentUpdate)
+
+	if err := commentUpdate.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
 
 	comment := cc.Service.Repository.Update(id, commentUpdate)
 
