@@ -25,7 +25,7 @@ func (cr *UserRepositoryImpl) GetByID(id int) models.User {
 	return user
 }
 
-func (cr *UserRepositoryImpl) Register(userRequest models.UserRequest) models.User {
+func (cr *UserRepositoryImpl) Create(userRequest models.UserRequest) models.User {
 	user := userRequest.ToDBForm()
 
 	rec := database.DB.Create(&user)

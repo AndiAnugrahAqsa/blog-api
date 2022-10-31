@@ -45,7 +45,7 @@ type RoleRepository interface {
 type UserRepository interface {
 	GetAll() []models.User
 	GetByID(id int) models.User
-	Register(userRequest models.UserRequest) models.User
+	Create(userRequest models.UserRequest) models.User
 	Login(userRequest models.UserRequest) models.User
 	Update(id int, userRequest models.UserRequest) models.User
 	Delete(id int) bool
