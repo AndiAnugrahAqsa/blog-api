@@ -46,6 +46,10 @@ func (cr *UserRepositoryImpl) Login(userRequest models.UserRequest) models.User 
 func (cr *UserRepositoryImpl) Update(id int, userRequest models.UserRequest) models.User {
 	user := cr.GetByID(id)
 
+	if user.ID == 0 {
+		return user
+	}
+
 	user.FirstName = userRequest.FirstName
 	user.LastName = userRequest.LastName
 	user.Email = userRequest.Email
