@@ -45,6 +45,28 @@ func (cc *UserController) GetByID(c echo.Context) error {
 	return NewResponseSuccess(c, http.StatusOK, "successfully get user", user.ToResponse())
 }
 
+func (cc *UserController) Create(c echo.Context) error {
+	var userRequest models.UserRequest
+
+	c.Bind(&userRequest)
+
+	if err := userRequest.Validate(); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
+	}
+
+	if userRequest.RoleID == 0 {
+		userRequest.RoleID = 2
+	}
+
+	password, _ := bcrypt.GenerateFromPassword([]byte(userRequest.Password), bcrypt.DefaultCost)
+
+	userRequest.Password = string(password)
+
+	user := cc.Service.Repository.Create(userRequest)
+
+	return NewResponseSuccess(c, http.StatusCreated, "successfully register user", user.ToResponse())
+}
+
 func (cc *UserController) Register(c echo.Context) error {
 	var userRequest models.UserRequest
 
