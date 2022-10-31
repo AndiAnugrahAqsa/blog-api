@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 )
 
@@ -50,10 +51,10 @@ func (b *Blog) ToResponse() BlogResponse {
 }
 
 type BlogRequest struct {
-	UserID     int    `json:"user_id"`
-	CategoryID int    `json:"category_id"`
-	Title      string `json:"title"`
-	Content    string `json:"content"`
+	UserID     int    `json:"user_id" validate:"required"`
+	CategoryID int    `json:"category_id" validate:"required"`
+	Title      string `json:"title" validate:"required"`
+	Content    string `json:"content" validate:"required"`
 }
 
 func (br *BlogRequest) ToDBForm() Blog {
@@ -63,6 +64,14 @@ func (br *BlogRequest) ToDBForm() Blog {
 		Title:      br.Title,
 		Content:    br.Content,
 	}
+}
+
+func (br *BlogRequest) Validate() error {
+	validate := validator.New()
+
+	err := validate.Struct(br)
+
+	return err
 }
 
 type BlogResponse struct {
