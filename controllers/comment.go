@@ -58,6 +58,10 @@ func (cc *CommentController) GetByID(c echo.Context) error {
 
 	comment = cc.Service.Repository.GetByID(id)
 
+	if comment.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "comment doesn't exist")
+	}
+
 	return NewResponseSuccess(c, http.StatusOK, "successfully get comment", comment.ToResponse())
 }
 
@@ -88,6 +92,10 @@ func (cc *CommentController) Update(c echo.Context) error {
 	}
 
 	comment := cc.Service.Repository.Update(id, commentUpdate)
+
+	if comment.ID == 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "comment doesn't exist")
+	}
 
 	return NewResponseSuccess(c, http.StatusOK, "successfully update comment", comment.ToResponse())
 }
