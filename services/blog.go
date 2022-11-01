@@ -23,6 +23,10 @@ func (bs *BlogService) GetByUserID(userID int) []models.Blog {
 	return bs.Repository.GetByUserID(userID)
 }
 
+func (bs *BlogService) GetByCategoryID(categoryID int) []models.Blog {
+	return bs.Repository.GetByCategoryID(categoryID)
+}
+
 func (bs *BlogService) GetByID(id int) models.Blog {
 	return bs.Repository.GetByID(id)
 }
