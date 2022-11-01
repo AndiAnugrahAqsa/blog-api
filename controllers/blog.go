@@ -48,6 +48,22 @@ func (bc *BlogController) GetByUserID(c echo.Context) error {
 	return NewResponseSuccess(c, http.StatusOK, "successfully get blogs by user id", blogsResponse)
 }
 
+func (bc *BlogController) GetByCategoryID(c echo.Context) error {
+	categoryIDString := c.Param("category_id")
+	categoryID, _ := strconv.Atoi(categoryIDString)
+
+	var blogs []models.Blog
+	blogs = bc.Service.Repository.GetByCategoryID(categoryID)
+
+	var blogsResponse []models.BlogResponse
+
+	for _, blog := range blogs {
+		blogsResponse = append(blogsResponse, blog.ToResponse())
+	}
+
+	return NewResponseSuccess(c, http.StatusOK, "successfully get blogs by category id", blogsResponse)
+}
+
 func (bc *BlogController) GetByID(c echo.Context) error {
 	idString := c.Param("id")
 	id, _ := strconv.Atoi(idString)
