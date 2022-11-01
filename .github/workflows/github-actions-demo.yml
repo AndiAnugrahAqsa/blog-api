@@ -17,5 +17,5 @@ jobs:
       - name: Build app
         run: go build -v ./...
 
-      # - name: Test
-      #   run: go test -v ./...
+      - name: Unit Test
+        run: go test ./services
