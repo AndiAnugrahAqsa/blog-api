@@ -4,7 +4,7 @@ import (
 	"mini-project/middlewares"
 	"mini-project/models"
 	"mini-project/repositories"
-	"mini-project/services"
+	services "mini-project/services/users"
 	"net/http"
 	"strconv"
 

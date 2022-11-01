@@ -3,7 +3,7 @@ package controllers
 import (
 	"mini-project/models"
 	"mini-project/repositories"
-	"mini-project/services"
+	services "mini-project/services/roles"
 	"net/http"
 	"strconv"
 
