@@ -32,6 +32,7 @@ func RoutesInit(e *echo.Echo) {
 
 	e.GET("/blogs", blogController.GetAll)
 	e.GET("/blogs/user/:user_id", blogController.GetByUserID)
+	e.GET("/blogs/category/:category_id", blogController.GetByCategoryID)
 	e.GET("/blogs/:id", blogController.GetByID)
 	superUserPrivateRoutes.POST("/blogs", blogController.Create)
 	superUserPrivateRoutes.PUT("/blogs/:id", blogController.Update)
