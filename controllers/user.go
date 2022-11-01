@@ -3,6 +3,7 @@ package controllers
 import (
 	"mini-project/middlewares"
 	"mini-project/models"
+	"mini-project/repositories"
 	"mini-project/services"
 	"net/http"
 	"strconv"
@@ -17,7 +18,7 @@ type UserController struct {
 
 func NewUserController() UserController {
 	return UserController{
-		Service: services.NewUserService(),
+		Service: services.NewUserService(&repositories.UserRepositoryImpl{}),
 	}
 }
 

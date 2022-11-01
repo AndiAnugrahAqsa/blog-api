@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"mini-project/models"
+	"mini-project/repositories"
 	"mini-project/services"
 	"net/http"
 	"strconv"
@@ -15,7 +16,7 @@ type RoleController struct {
 
 func NewRoleController() RoleController {
 	return RoleController{
-		Service: services.NewRoleService(),
+		Service: services.NewRoleService(&repositories.RoleRepositoryImpl{}),
 	}
 }
 

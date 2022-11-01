@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"mini-project/models"
+	"mini-project/repositories"
 	"mini-project/services"
 	"net/http"
 	"strconv"
@@ -15,7 +16,7 @@ type LikeController struct {
 
 func NewLikeController() LikeController {
 	return LikeController{
-		Service: services.NewLikeService(),
+		Service: services.NewLikeService(&repositories.LikeRepositoryImpl{}),
 	}
 }
 

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"mini-project/models"
+	"mini-project/repositories"
 	"mini-project/services"
 	"net/http"
 	"strconv"
@@ -15,7 +16,7 @@ type CategoryController struct {
 
 func NewCategoryController() CategoryController {
 	return CategoryController{
-		Service: services.NewCategoryService(),
+		Service: services.NewCategoryService(&repositories.CategoryRepositoryImpl{}),
 	}
 }
 

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"mini-project/models"
+	"mini-project/repositories"
 	"mini-project/services"
 	"net/http"
 	"strconv"
@@ -15,7 +16,7 @@ type BlogController struct {
 
 func NewBlogController() BlogController {
 	return BlogController{
-		Service: services.NewBlogService(),
+		Service: services.NewBlogService(&repositories.BlogRepositoryImpl{}),
 	}
 }
 

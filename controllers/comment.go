@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"mini-project/models"
+	"mini-project/repositories"
 	"mini-project/services"
 	"net/http"
 	"strconv"
@@ -15,7 +16,7 @@ type CommentController struct {
 
 func NewCommentController() CommentController {
 	return CommentController{
-		Service: services.NewCommentService(),
+		Service: services.NewCommentService(&repositories.CommentRepositoryImpl{}),
 	}
 }
 
