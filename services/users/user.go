@@ -1,4 +1,4 @@
-package services
+package users
 
 import (
 	"mini-project/models"
