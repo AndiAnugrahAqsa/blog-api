@@ -5,6 +5,7 @@ import "mini-project/models"
 type BlogRepository interface {
 	GetAll() []models.Blog
 	GetByUserID(user_id int) []models.Blog
+	GetByCategoryID(category_id int) []models.Blog
 	GetByID(id int) models.Blog
 	Create(blogRequest models.BlogRequest) models.Blog
 	Update(id int, blogRequest models.BlogRequest) models.Blog
