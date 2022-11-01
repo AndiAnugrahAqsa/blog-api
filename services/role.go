@@ -9,9 +9,9 @@ type RoleService struct {
 	Repository repositories.RoleRepository
 }
 
-func NewRoleService() RoleService {
+func NewRoleService(repository repositories.RoleRepository) RoleService {
 	return RoleService{
-		Repository: &repositories.RoleRepositoryImpl{},
+		Repository: repository,
 	}
 }
 

@@ -9,9 +9,9 @@ type BlogService struct {
 	Repository repositories.BlogRepository
 }
 
-func NewBlogService() BlogService {
+func NewBlogService(repository repositories.BlogRepository) BlogService {
 	return BlogService{
-		Repository: &repositories.BlogRepositoryImpl{},
+		Repository: repository,
 	}
 }
 

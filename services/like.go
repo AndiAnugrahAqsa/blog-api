@@ -9,9 +9,9 @@ type LikeService struct {
 	Repository repositories.LikeRepository
 }
 
-func NewLikeService() LikeService {
+func NewLikeService(repository repositories.LikeRepository) LikeService {
 	return LikeService{
-		Repository: &repositories.LikeRepositoryImpl{},
+		Repository: repository,
 	}
 }
 

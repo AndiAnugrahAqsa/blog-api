@@ -9,9 +9,9 @@ type CommentService struct {
 	Repository repositories.CommentRepository
 }
 
-func NewCommentService() CommentService {
+func NewCommentService(repository repositories.CommentRepository) CommentService {
 	return CommentService{
-		Repository: &repositories.CommentRepositoryImpl{},
+		Repository: repository,
 	}
 }
 
