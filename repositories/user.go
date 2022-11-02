@@ -71,7 +71,7 @@ func (ur *UserRepositoryImpl) Update(id int, userRequest models.UserRequest) mod
 func (ur *UserRepositoryImpl) Delete(id int) bool {
 	user := ur.GetByID(id)
 
-	rec := database.DB.Delete(&user)
+	rec := database.DB.Select("Blogs", "Likes", "Comments").Delete(&user)
 
 	if rec.RowsAffected == 0 {
 		return false
