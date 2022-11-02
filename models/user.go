@@ -60,6 +60,7 @@ type UserResponse struct {
 func (u *User) ToResponse() UserResponse {
 	return UserResponse{
 		ID:        u.ID,
+		RoleName:  u.Role.Name,
 		FirstName: u.FirstName,
 		LastName:  u.LastName,
 		Email:     u.Email,
