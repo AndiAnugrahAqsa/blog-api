@@ -18,6 +18,9 @@ type User struct {
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `json:"deleted_at"`
+	Blogs     []Blog         `json:"blogs" gorm:"constraint:OnDelete:CASCADE;"`
+	Likes     []Like         `json:"likes" gorm:"constraint:OnDelete:CASCADE;"`
+	Comments  []Comment      `json:"comments" gorm:"constraint:OnDelete:CASCADE;"`
 }
 
 type UserRequest struct {
