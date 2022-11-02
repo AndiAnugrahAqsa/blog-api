@@ -1,4 +1,4 @@
-package services
+package blogs
 
 import (
 	"mini-project/models"
