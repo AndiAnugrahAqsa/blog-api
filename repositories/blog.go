@@ -100,7 +100,7 @@ func (br *BlogRepositoryImpl) Update(id int, blogRequest models.BlogRequest) mod
 func (br *BlogRepositoryImpl) Delete(id int) bool {
 	blog := br.GetByID(id)
 
-	rec := database.DB.Delete(&blog)
+	rec := database.DB.Select("Likes", "Comments").Delete(&blog)
 
 	if rec.RowsAffected == 0 {
 		return false
