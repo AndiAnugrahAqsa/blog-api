@@ -1,4 +1,4 @@
-package services
+package categories
 
 import (
 	"mini-project/models"
