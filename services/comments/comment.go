@@ -1,4 +1,4 @@
-package services
+package comments
 
 import (
 	"mini-project/models"
