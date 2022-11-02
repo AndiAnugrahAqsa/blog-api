@@ -18,8 +18,8 @@ type Blog struct {
 	CreatedAt  time.Time      `json:"created_at"`
 	UpdatedAt  time.Time      `json:"updated_at"`
 	DeletedAt  gorm.DeletedAt `json:"deleted_at"`
-	Comments   []Comment      `json:"comment"`
-	Likes      []Like         `json:"likes"`
+	Comments   []Comment      `json:"comment" gorm:"constraint:OnDelete:CASCADE;"`
+	Likes      []Like         `json:"likes" gorm:"constraint:OnDelete:CASCADE;"`
 }
 
 func (b *Blog) ToResponse() BlogResponse {
