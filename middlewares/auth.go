@@ -11,6 +11,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+var whitelist []string = make([]string, 5)
+
 type jwtCustomClaims struct {
 	ID     int `json:"id"`
 	RoleID int `json:"role_id"`
@@ -41,13 +43,41 @@ func GetJWTSecretKey(token *jwt.Token) (interface{}, error) {
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 
+	if isListed := CheckToken(token.Raw); !isListed {
+		return nil, errors.New("invalid or expired jwt")
+	}
+
 	if !ok {
-		return nil, errors.New("Can not map the token")
+		return nil, errors.New("invalid or expired jwt")
 	}
 
 	if claims["role_id"] != float64(1) {
-		return nil, errors.New("Can not access this path")
+		return nil, errors.New("invalid or expired jwt")
 	}
 
 	return []byte(util.GetConfig("JWT_SECRET_KEY")), nil
+}
+
+func AddTokenInWhiteList(token string) {
+	whitelist = append(whitelist, token)
+}
+
+func CheckToken(token string) bool {
+	for _, tkn := range whitelist {
+		if tkn == token {
+			return true
+		}
+	}
+
+	return false
+}
+
+func Logout(token string) bool {
+	for idx, tkn := range whitelist {
+		if tkn == token {
+			whitelist = append(whitelist[:idx], whitelist[idx+1:]...)
+		}
+	}
+
+	return true
 }
