@@ -21,7 +21,7 @@ func RoutesInit(e *echo.Echo) {
 	superUserPrivateRoutes := e.Group("")
 
 	config := middleware.JWTConfig{
-		KeyFunc: middlewares.GetJWTSecretKey,
+		KeyFunc: middlewares.GetJWTSecretKeyForSuperUser,
 	}
 
 	superUserPrivateRoutes.Use(middleware.JWTWithConfig(config))
