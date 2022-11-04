@@ -7,6 +7,7 @@ import (
 	services "mini-project/services/users"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
@@ -107,8 +108,30 @@ func (uc *UserController) Login(c echo.Context) error {
 		return err
 	}
 
+	middlewares.AddTokenInWhiteList(token)
+
 	return c.JSON(http.StatusOK, map[string]any{
 		"token": token,
+	})
+}
+
+func (uc *UserController) Logout(c echo.Context) error {
+	tokenHeader := c.Request().Header.Get("Authorization")
+
+	token := strings.Split(tokenHeader, " ")[1]
+
+	isListed := middlewares.CheckToken(token)
+
+	if !isListed {
+		return c.JSON(http.StatusUnauthorized, map[string]string{
+			"message": "invalid token",
+		})
+	}
+
+	middlewares.Logout(token)
+
+	return c.JSON(http.StatusOK, map[string]string{
+		"message": "logout success",
 	})
 }
 
