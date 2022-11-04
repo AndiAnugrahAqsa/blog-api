@@ -38,7 +38,7 @@ func (cr *CommentRepositoryImpl) Create(commentRequest models.CommentRequest) mo
 
 	rec := database.DB.Create(&comment)
 
-	rec.Last(&comment)
+	rec.Preload(clause.Associations).Last(&comment)
 
 	return comment
 }
@@ -56,7 +56,7 @@ func (cr *CommentRepositoryImpl) Update(id int, commentRequest models.CommentReq
 
 	rec := database.DB.Save(&comment)
 
-	rec.Last(&comment)
+	rec.Preload(clause.Associations).Last(&comment)
 
 	return comment
 }
