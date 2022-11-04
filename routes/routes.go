@@ -71,4 +71,5 @@ func RoutesInit(e *echo.Echo) {
 	// user auth
 	e.POST("/register", userController.Register)
 	e.POST("/login", userController.Login)
+	e.POST("/logout", userController.Logout)
 }
