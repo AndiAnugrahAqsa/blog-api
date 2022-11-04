@@ -50,8 +50,8 @@ func (cr *CommentRepositoryImpl) Update(id int, commentRequest models.CommentReq
 		return comment
 	}
 
-	comment.UserID = commentRequest.UserID
-	comment.BlogID = commentRequest.BlogID
+	comment.User.ID = commentRequest.UserID
+	comment.Blog.ID = commentRequest.BlogID
 	comment.Content = commentRequest.Content
 
 	rec := database.DB.Save(&comment)
