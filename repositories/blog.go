@@ -73,7 +73,7 @@ func (br *BlogRepositoryImpl) Create(blogRequest models.BlogRequest) models.Blog
 
 	rec := database.DB.Create(&blog)
 
-	rec.Last(&blog)
+	rec.Preload(clause.Associations).Last(&blog)
 
 	return blog
 }
@@ -92,7 +92,7 @@ func (br *BlogRepositoryImpl) Update(id int, blogRequest models.BlogRequest) mod
 
 	rec := database.DB.Save(&blog)
 
-	rec.Last(&blog)
+	rec.Preload(clause.Associations).Last(&blog)
 
 	return blog
 }
