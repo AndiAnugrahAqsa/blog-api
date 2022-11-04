@@ -55,11 +55,13 @@ func (ur *UserRepositoryImpl) Update(id int, userRequest models.UserRequest) mod
 		return user
 	}
 
+	password, _ := bcrypt.GenerateFromPassword([]byte(userRequest.Password), bcrypt.DefaultCost)
+
 	user.FirstName = userRequest.FirstName
 	user.LastName = userRequest.LastName
 	user.Email = userRequest.Email
-	user.Password = userRequest.Password
-	user.RoleID = userRequest.RoleID
+	user.Password = string(password)
+	user.Role.ID = userRequest.RoleID
 
 	rec := database.DB.Save(&user)
 
