@@ -39,7 +39,7 @@ func GenerateToken(user models.User) (string, error) {
 	return tokenString, nil
 }
 
-func GetJWTSecretKeyForSuperUser(token *jwt.Token) (interface{}, error) {
+func GetJWTSecretKeyForAdmin(token *jwt.Token) (interface{}, error) {
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 

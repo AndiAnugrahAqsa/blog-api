@@ -17,13 +17,13 @@ var userController = controllers.NewUserController()
 
 func RoutesInit(e *echo.Echo) {
 
-	superUserPrivateRoutes := e.Group("")
+	adminPrivateRoutes := e.Group("")
 
-	configSuperUser := middleware.JWTConfig{
-		KeyFunc: middlewares.GetJWTSecretKeyForSuperUser,
+	configAdmin := middleware.JWTConfig{
+		KeyFunc: middlewares.GetJWTSecretKeyForAdmin,
 	}
 
-	superUserPrivateRoutes.Use(middleware.JWTWithConfig(configSuperUser))
+	adminPrivateRoutes.Use(middleware.JWTWithConfig(configAdmin))
 
 	userPrivateRoutes := e.Group("")
 
@@ -43,9 +43,9 @@ func RoutesInit(e *echo.Echo) {
 
 	e.GET("/categories", categoryController.GetAll)
 	e.GET("/categories/:id", categoryController.GetByID)
-	superUserPrivateRoutes.POST("/categories", categoryController.Create)
-	superUserPrivateRoutes.PUT("/categories/:id", categoryController.Update)
-	superUserPrivateRoutes.DELETE("/categories/:id", categoryController.Delete)
+	adminPrivateRoutes.POST("/categories", categoryController.Create)
+	adminPrivateRoutes.PUT("/categories/:id", categoryController.Update)
+	adminPrivateRoutes.DELETE("/categories/:id", categoryController.Delete)
 
 	e.GET("/comments", commentController.GetAll)
 	e.GET("/comments/:id", commentController.GetByID)
@@ -59,17 +59,17 @@ func RoutesInit(e *echo.Echo) {
 	userPrivateRoutes.POST("/likes", likeController.Create)
 	userPrivateRoutes.DELETE("/likes/:id", likeController.Delete)
 
-	superUserPrivateRoutes.GET("/roles", roleController.GetAll)
-	superUserPrivateRoutes.GET("/roles/:id", roleController.GetByID)
-	superUserPrivateRoutes.POST("/roles", roleController.Create)
-	superUserPrivateRoutes.PUT("/roles/:id", roleController.Update)
-	superUserPrivateRoutes.DELETE("/roles/:id", roleController.Delete)
+	adminPrivateRoutes.GET("/roles", roleController.GetAll)
+	adminPrivateRoutes.GET("/roles/:id", roleController.GetByID)
+	adminPrivateRoutes.POST("/roles", roleController.Create)
+	adminPrivateRoutes.PUT("/roles/:id", roleController.Update)
+	adminPrivateRoutes.DELETE("/roles/:id", roleController.Delete)
 
-	superUserPrivateRoutes.GET("/users", userController.GetAll)
-	superUserPrivateRoutes.GET("/users/:id", userController.GetByID)
-	superUserPrivateRoutes.POST("/users", userController.Create)
-	superUserPrivateRoutes.PUT("/users/:id", userController.Update)
-	superUserPrivateRoutes.DELETE("/users/:id", userController.Delete)
+	adminPrivateRoutes.GET("/users", userController.GetAll)
+	adminPrivateRoutes.GET("/users/:id", userController.GetByID)
+	adminPrivateRoutes.POST("/users", userController.Create)
+	adminPrivateRoutes.PUT("/users/:id", userController.Update)
+	adminPrivateRoutes.DELETE("/users/:id", userController.Delete)
 
 	// user auth
 	e.POST("/register", userController.Register)
