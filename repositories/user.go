@@ -35,7 +35,7 @@ func (ur *UserRepositoryImpl) Create(userRequest models.UserRequest) models.User
 
 	rec := database.DB.Create(&user)
 
-	rec.Last(&user)
+	rec.Preload(clause.Associations).Last(&user)
 
 	return user
 }
@@ -63,7 +63,7 @@ func (ur *UserRepositoryImpl) Update(id int, userRequest models.UserRequest) mod
 
 	rec := database.DB.Save(&user)
 
-	rec.Last(&user)
+	rec.Preload(clause.Associations).Last(&user)
 
 	return user
 }
