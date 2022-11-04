@@ -3,7 +3,6 @@ package routes
 import (
 	"mini-project/controllers"
 	"mini-project/middlewares"
-	"mini-project/util"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -20,15 +19,19 @@ func RoutesInit(e *echo.Echo) {
 
 	superUserPrivateRoutes := e.Group("")
 
-	config := middleware.JWTConfig{
+	configSuperUser := middleware.JWTConfig{
 		KeyFunc: middlewares.GetJWTSecretKeyForSuperUser,
 	}
 
-	superUserPrivateRoutes.Use(middleware.JWTWithConfig(config))
+	superUserPrivateRoutes.Use(middleware.JWTWithConfig(configSuperUser))
 
 	userPrivateRoutes := e.Group("")
 
-	userPrivateRoutes.Use(middleware.JWT([]byte(util.GetConfig("JWT_SECRET_KEY"))))
+	configUser := middleware.JWTConfig{
+		KeyFunc: middlewares.GetJWTSecretKeyForUser,
+	}
+
+	userPrivateRoutes.Use(middleware.JWTWithConfig(configUser))
 
 	e.GET("/blogs", blogController.GetAll)
 	e.GET("/blogs/user/:user_id", blogController.GetByUserID)

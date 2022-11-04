@@ -58,6 +58,14 @@ func GetJWTSecretKeyForSuperUser(token *jwt.Token) (interface{}, error) {
 	return []byte(util.GetConfig("JWT_SECRET_KEY")), nil
 }
 
+func GetJWTSecretKeyForUser(token *jwt.Token) (interface{}, error) {
+	if isListed := CheckToken(token.Raw); !isListed {
+		return nil, errors.New("invalid or expired jwt")
+	}
+
+	return []byte(util.GetConfig("JWT_SECRET_KEY")), nil
+}
+
 func AddTokenInWhiteList(token string) {
 	whitelist = append(whitelist, token)
 }
