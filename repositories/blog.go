@@ -85,8 +85,8 @@ func (br *BlogRepositoryImpl) Update(id int, blogRequest models.BlogRequest) mod
 		return blog
 	}
 
-	blog.UserID = blogRequest.UserID
-	blog.CategoryID = blogRequest.CategoryID
+	blog.User.ID = blogRequest.UserID
+	blog.Category.ID = blogRequest.CategoryID
 	blog.Title = blogRequest.Title
 	blog.Content = blogRequest.Content
 
