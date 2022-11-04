@@ -38,7 +38,7 @@ func (lr *LikeRepositoryImpl) Create(likeRequest models.LikeRequest) models.Like
 
 	rec := database.DB.Create(&like)
 
-	rec.Last(&like)
+	rec.Preload(clause.Associations).Last(&like)
 
 	return like
 }
