@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  mini-project:
+    build: .
+    ports:
+      - 2020:2020
+    restart: on-failure
+    networks:
+      - my-network
+    depends_on:
+      - mariadb-service
+  
+  mariadb-service:
+    image: mariadb:latest
+    environment:
+      - MARIADB_ROOT_PASSWORD=root1234
+    ports:
+      - 3306
+    volumes:
+      - /D:/minidb
+      - ./mariadb/schema.sql:/data/application/init.sql
+    command: --init-file /data/application/init.sql
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
