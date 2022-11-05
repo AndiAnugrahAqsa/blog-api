@@ -18,7 +18,7 @@ services:
     ports:
       - 3306
     volumes:
-      - /D:/minidb
+      - D:\minidbvolume:/var/lib/mysql
       - ./mariadb/schema.sql:/data/application/init.sql
     command: --init-file /data/application/init.sql
     networks:
