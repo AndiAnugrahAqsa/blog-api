@@ -14,11 +14,11 @@ var DB *gorm.DB
 
 func InitDB() {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		util.GetConfig("DB_USERNAME"),
-		util.GetConfig("DB_PASSWORD"),
-		util.GetConfig("DB_HOST"),
-		util.GetConfig("DB_PORT"),
-		util.GetConfig("DB_NAME"),
+		util.Cfg.DB_USERNAME,
+		util.Cfg.DB_PASSWORD,
+		util.Cfg.DB_HOST,
+		util.Cfg.DB_PORT,
+		util.Cfg.DB_NAME,
 	)
 	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})

@@ -30,7 +30,7 @@ func GenerateToken(user models.User) (string, error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	tokenString, err := token.SignedString([]byte(util.GetConfig("JWT_SECRET_KEY")))
+	tokenString, err := token.SignedString([]byte(util.Cfg.JWT_SECRET_KEY))
 
 	if err != nil {
 		return "", echo.NewHTTPError(http.StatusInternalServerError, "fail to generate token")
@@ -55,7 +55,7 @@ func GetJWTSecretKeyForAdmin(token *jwt.Token) (interface{}, error) {
 		return nil, errors.New("invalid or expired jwt")
 	}
 
-	return []byte(util.GetConfig("JWT_SECRET_KEY")), nil
+	return []byte(util.Cfg.JWT_SECRET_KEY), nil
 }
 
 func GetJWTSecretKeyForUser(token *jwt.Token) (interface{}, error) {
@@ -63,7 +63,7 @@ func GetJWTSecretKeyForUser(token *jwt.Token) (interface{}, error) {
 		return nil, errors.New("invalid or expired jwt")
 	}
 
-	return []byte(util.GetConfig("JWT_SECRET_KEY")), nil
+	return []byte(util.Cfg.JWT_SECRET_KEY), nil
 }
 
 func AddTokenInWhiteList(token string) {
