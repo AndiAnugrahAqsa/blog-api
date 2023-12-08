@@ -3,6 +3,7 @@ package main
 import (
 	"mini-project/database"
 	"mini-project/routes"
+	"mini-project/util"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -21,5 +22,5 @@ func main() {
 
 	routes.RoutesInit(e)
 
-	e.Logger.Fatal(e.Start(":2020"))
+	e.Logger.Fatal(e.Start(":" + util.GetConfig("PORT")))
 }
