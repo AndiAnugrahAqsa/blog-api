@@ -10,6 +10,8 @@ import (
 )
 
 func main() {
+	util.InitConfig()
+
 	database.InitDB()
 
 	e := echo.New()
@@ -22,5 +24,5 @@ func main() {
 
 	routes.RoutesInit(e)
 
-	e.Logger.Fatal(e.Start(":" + util.GetConfig("PORT")))
+	e.Logger.Fatal(e.Start(":" + util.Cfg.PORT))
 }
