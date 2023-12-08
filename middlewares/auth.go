@@ -14,15 +14,15 @@ import (
 var whitelist []string = make([]string, 5)
 
 type jwtCustomClaims struct {
-	ID     int `json:"id"`
-	RoleID int `json:"role_id"`
+	ID      int  `json:"id"`
+	IsAdmin bool `json:"is_admin"`
 	jwt.StandardClaims
 }
 
 func GenerateToken(user models.User) (string, error) {
 	claims := &jwtCustomClaims{
 		user.ID,
-		user.RoleID,
+		user.IsAdmin,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
 		},

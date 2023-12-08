@@ -35,13 +35,6 @@ type LikeRepository interface {
 	Create(likeRequest models.LikeRequest) models.Like
 	Delete(id int) bool
 }
-type RoleRepository interface {
-	GetAll() []models.Role
-	GetByID(id int) models.Role
-	Create(roleRequest models.RoleRequest) models.Role
-	Update(id int, roleRequest models.RoleRequest) models.Role
-	Delete(id int) bool
-}
 
 type UserRepository interface {
 	GetAll() []models.User

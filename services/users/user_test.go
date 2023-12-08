@@ -19,25 +19,19 @@ var (
 func TestMain(m *testing.M) {
 	userService = NewUserService(&userRepository)
 
-	roleData := models.Role{
-		ID:   1,
-		Name: "role testing",
-	}
-
 	userData = models.User{
 		ID:        1,
 		FirstName: "first name testing",
 		LastName:  "last name testing",
 		Email:     "testing@test.com",
 		Password:  "123",
-		RoleID:    1,
-		Role:      roleData,
+		IsAdmin:   true,
 	}
 
 	userRequest = models.UserRequest{
 		FirstName: "first name testing",
 		LastName:  "last name testing",
-		RoleID:    1,
+		IsAdmin:   true,
 		Email:     "testing@test.com",
 		Password:  "123",
 	}

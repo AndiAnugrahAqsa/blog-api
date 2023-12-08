@@ -12,7 +12,6 @@ var blogController = controllers.NewBlogController()
 var categoryController = controllers.NewCategoryController()
 var commentController = controllers.NewCommentController()
 var likeController = controllers.NewLikeController()
-var roleController = controllers.NewRoleController()
 var userController = controllers.NewUserController()
 
 func RoutesInit(e *echo.Echo) {
@@ -58,12 +57,6 @@ func RoutesInit(e *echo.Echo) {
 	e.GET("likes/blog/:blog_id", likeController.GetByBlogID)
 	userPrivateRoutes.POST("/likes", likeController.Create)
 	userPrivateRoutes.DELETE("/likes/:id", likeController.Delete)
-
-	adminPrivateRoutes.GET("/roles", roleController.GetAll)
-	adminPrivateRoutes.GET("/roles/:id", roleController.GetByID)
-	adminPrivateRoutes.POST("/roles", roleController.Create)
-	adminPrivateRoutes.PUT("/roles/:id", roleController.Update)
-	adminPrivateRoutes.DELETE("/roles/:id", roleController.Delete)
 
 	adminPrivateRoutes.GET("/users", userController.GetAll)
 	adminPrivateRoutes.GET("/users/:id", userController.GetByID)

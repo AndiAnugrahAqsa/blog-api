@@ -21,7 +21,7 @@ func TestMain(m *testing.M) {
 
 	user := models.User{
 		ID:        1,
-		RoleID:    1,
+		IsAdmin:   true,
 		FirstName: "first name",
 		LastName:  "last name",
 	}

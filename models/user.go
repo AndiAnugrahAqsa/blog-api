@@ -9,8 +9,7 @@ import (
 
 type User struct {
 	ID        int            `json:"id"`
-	RoleID    int            `json:"role_id"`
-	Role      Role           `json:"role"`
+	IsAdmin   bool           `json:"is_admin"`
 	FirstName string         `json:"first_name"`
 	LastName  string         `json:"last_name"`
 	Email     string         `json:"email"`
@@ -24,7 +23,7 @@ type User struct {
 }
 
 type UserRequest struct {
-	RoleID    int    `json:"role_id"`
+	IsAdmin   bool   `json:"is_admin"`
 	FirstName string `json:"first_name" validate:"required"`
 	LastName  string `json:"last_name" validate:"required"`
 	Email     string `json:"email" validate:"required,email"`
@@ -33,7 +32,7 @@ type UserRequest struct {
 
 func (ur *UserRequest) ToDBForm() User {
 	return User{
-		RoleID:    ur.RoleID,
+		IsAdmin:   ur.IsAdmin,
 		FirstName: ur.FirstName,
 		LastName:  ur.LastName,
 		Email:     ur.Email,
@@ -51,7 +50,7 @@ func (ur *UserRequest) Validate() error {
 
 type UserResponse struct {
 	ID        int            `json:"id"`
-	RoleName  string         `json:"role"`
+	IsAdmin   bool           `json:"is_admin"`
 	FirstName string         `json:"first_name"`
 	LastName  string         `json:"last_name"`
 	Email     string         `json:"email"`
@@ -63,7 +62,7 @@ type UserResponse struct {
 func (u *User) ToResponse() UserResponse {
 	return UserResponse{
 		ID:        u.ID,
-		RoleName:  u.Role.Name,
+		IsAdmin:   u.IsAdmin,
 		FirstName: u.FirstName,
 		LastName:  u.LastName,
 		Email:     u.Email,

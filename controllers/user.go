@@ -60,9 +60,7 @@ func (uc *UserController) Create(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
 	}
 
-	if userRequest.RoleID == 0 {
-		userRequest.RoleID = 2
-	}
+	userRequest.IsAdmin = false
 
 	user := uc.Service.Repository.Create(userRequest)
 
@@ -78,7 +76,7 @@ func (uc *UserController) Register(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "validation failed")
 	}
 
-	userRequest.RoleID = 2
+	userRequest.IsAdmin = false
 
 	user := uc.Service.Repository.Create(userRequest)
 

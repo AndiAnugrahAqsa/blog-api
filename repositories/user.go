@@ -61,7 +61,7 @@ func (ur *UserRepositoryImpl) Update(id int, userRequest models.UserRequest) mod
 	user.LastName = userRequest.LastName
 	user.Email = userRequest.Email
 	user.Password = string(password)
-	user.Role.ID = userRequest.RoleID
+	user.IsAdmin = userRequest.IsAdmin
 
 	rec := database.DB.Save(&user)
 
