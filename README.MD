@@ -18,3 +18,4 @@ https://documenter.getpostman.com/view/23489044/2s8YekSvkD
 - Docker Compose
 
 ## Database Structure
+![database structure](/NEWEST ERD BLOG API.png)
