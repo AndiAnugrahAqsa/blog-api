@@ -51,7 +51,7 @@ func GetJWTSecretKeyForAdmin(token *jwt.Token) (interface{}, error) {
 		return nil, errors.New("invalid or expired jwt")
 	}
 
-	if claims["role_id"] != float64(1) {
+	if claims["is_admin"] != true {
 		return nil, errors.New("invalid or expired jwt")
 	}
 
